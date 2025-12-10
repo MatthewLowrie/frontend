@@ -25,6 +25,8 @@ describe("RatingCard", () => {
 
   it("renders all 5 breakdown rows", () => {
     render(<RatingCard />);
-    expect(screen.getAllByText(/stars?/i).length).toBeGreaterThanOrEqual(1);
+    [5, 4, 3, 2, 1].forEach((star) => {
+      expect(screen.getByText(star.toString())).toBeInTheDocument();
+    });
   });
 });
