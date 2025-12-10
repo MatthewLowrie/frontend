@@ -1,7 +1,17 @@
 import RatingStars from "./RatingStars";
 import RatingBarRow from "./RatingBarRow";
 import type { RatingBreakdown } from "./types";
-const ratingData = {
+
+export type RatingCardProps = {
+  ratingData?: {
+    title: string;
+    average: number;
+    stars: number;
+    breakdown: RatingBreakdown;
+  } | null;
+};
+
+const defaultRatingData = {
   title: "EXCELLENT",
   average: 4.6,
   stars: 4.5,
@@ -14,8 +24,13 @@ const ratingData = {
   ] as RatingBreakdown,
 };
 
-export default function RatingCard() {
-  const total = ratingData.breakdown.reduce((sum, r) => sum + r.count, 0); //calculate total to make proportionately filled bars
+export default function RatingCard({
+  ratingData = defaultRatingData,
+}: RatingCardProps) {
+  if (!ratingData) {
+    return null;
+  }
+  const total = ratingData.breakdown.reduce((sum, r) => sum + r.count, 0);
 
   return (
     <div
